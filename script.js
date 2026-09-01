@@ -7,63 +7,89 @@ let numero1 = document.querySelector("#numero1");
 let numero2 = document.querySelector("#numero2");
 
 let resultado = document.querySelector("#resultado");
-let botaolimpar = document.querySelector("#limpar");
+let botaoLimpar = document.querySelector("#limpar");
 
-botaoSomar.addEventListener("click", function somar() {
+// Pega os valores digitados e transforma em números
+function pegarNumeros() {
   let n1 = parseFloat(numero1.value);
   let n2 = parseFloat(numero2.value);
+
+  return { n1, n2 };
+}
+
+// Verifica se os dois valores são números válidos
+function validarNumeros(n1, n2) {
   if (isNaN(n1) || isNaN(n2)) {
     resultado.textContent = "Digite os dois números";
+
+    return false;
+  }
+
+  return true;
+}
+
+// Soma
+botaoSomar.addEventListener("click", function () {
+  let { n1, n2 } = pegarNumeros();
+
+  if (!validarNumeros(n1, n2)) {
     return;
   }
 
   let soma = n1 + n2;
+
   resultado.textContent = soma;
 });
 
-botaoSubtrair.addEventListener("click", function subtrair() {
-  let n1 = parseFloat(numero1.value);
-  let n2 = parseFloat(numero2.value);
-  if (isNaN(n1) || isNaN(n2)) {
-    resultado.textContent = "Digite os dois números";
+// Subtrair
+botaoSubtrair.addEventListener("click", function () {
+  let { n1, n2 } = pegarNumeros();
+
+  if (!validarNumeros(n1, n2)) {
     return;
   }
 
-  let subtrair = n1 - n2;
-  resultado.textContent = subtrair;
+  let subtracao = n1 - n2;
+
+  resultado.textContent = subtracao;
 });
 
-botaoMultiplicar.addEventListener("click", function multiplicar() {
-  let n1 = parseFloat(numero1.value);
-  let n2 = parseFloat(numero2.value);
-  if (isNaN(n1) || isNaN(n2)) {
-    resultado.textContent = "Digite os dois números";
+// Multiplicar
+botaoMultiplicar.addEventListener("click", function () {
+  let { n1, n2 } = pegarNumeros();
+
+  if (!validarNumeros(n1, n2)) {
     return;
   }
 
-  let multiplicar = n1 * n2;
-  resultado.textContent = multiplicar;
+  let multiplicacao = n1 * n2;
+
+  resultado.textContent = multiplicacao;
 });
 
-botaoDividir.addEventListener("click", function dividir() {
-  let n1 = parseFloat(numero1.value);
-  let n2 = parseFloat(numero2.value);
+// Dividir
+botaoDividir.addEventListener("click", function () {
+  let { n1, n2 } = pegarNumeros();
 
-  if (isNaN(n1) || isNaN(n2)) {
-    resultado.textContent = "Digite os dois números";
+  if (!validarNumeros(n1, n2)) {
     return;
   }
 
   if (n2 === 0) {
     resultado.textContent = "Não é possível dividir por zero";
-  } else {
-    let divisao = n1 / n2;
-    resultado.textContent = divisao;
+
+    return;
   }
+
+  let divisao = n1 / n2;
+
+  resultado.textContent = divisao;
 });
 
-botaolimpar.addEventListener("click", function limpar() {
+// Limpar
+botaoLimpar.addEventListener("click", function () {
   numero1.value = "";
   numero2.value = "";
+
   resultado.textContent = "0";
 });
